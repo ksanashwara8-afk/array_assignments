@@ -11,8 +11,7 @@ function setup() {
     const barWidth = 35;
     const gap = 4;
 
-    const scale = m.calcScale(data, HEIGHT);
-    const avg = m.calcAvg(data, HEIGHT, noOfBars, scale);
+    const scaleFactor = m.calcScale(data, HEIGHT);
 
     r.SetTraceLogLevel(r.LOG_NONE);
     r.InitWindow(WIDTH, HEIGHT, "Averages");
@@ -26,14 +25,13 @@ function setup() {
         noOfBars,
         barWidth,
         gap,
-        scale,
-        avg,
+        scaleFactor,
     };
 }
 
-function createBar(n, width, height, gap, data, scale) {
+function createBar(n, width, height, gap, data, scaleFactor) {
     const x = (width + gap) * n;
-    const y = height - data[n] / scale;
+    const y = height - data[n] / scaleFactor;
     return { x, y, width, height };
 }
 
@@ -48,20 +46,24 @@ function drawBar(n, world) {
         world.HEIGHT,
         world.gap,
         world.data,
-        world.scale,
+        world.scaleFactor,
     );
     drawRect(barTODraw, r.DARKBLUE);
 }
 
+function drawAvgLine(w, color) {
+    const scaledAvg = m.calcAvg(w.data, w.HEIGHT, w.noOfBars, w.scaleFactor);
+    r.DrawLine(0, scaledAvg, w.WIDTH, scaledAvg, color);
+}
+
 function draw(world) {
     r.BeginDrawing();
-    r.ClearBackground(r.WHITE);
+    r.ClearBackground(r.RAYWHITE);
 
     for (let n = 0; n <= world.noOfBars; n++) {
         drawBar(n, world);
     }
-
-    r.DrawLine(0, world.avg, world.WIDTH, world.avg, r.RED);
+    drawAvgLine(world, r.RED);
 
     r.EndDrawing();
 }

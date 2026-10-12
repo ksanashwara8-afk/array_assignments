@@ -11,18 +11,18 @@ function calcScale(data, height) {
     return max / (0.9 * height);
 }
 
-function calcSum(data, height, scale) {
+function calcSum(data) {
     let sum = 0;
     for (const i of data) {
-        const y = height - i / scale;
-        sum += y;
+        sum += i;
     }
     return sum;
 }
 
-function calcAvg(data, height, noOfBars, scale) {
-    const sum = calcSum(data, height, scale);
-    return sum / noOfBars;
+function calcAvg(data, height, noOfBars, scaleFactor) {
+    const sum = calcSum(data, height, scaleFactor);
+    const avg = sum / noOfBars;
+    return height - avg / scaleFactor;
 }
 
 module.exports = {
