@@ -1,5 +1,5 @@
 const r = require("raylib");
-const m = require("./math_functions");
+const m = require("./math");
 
 function setup() {
     const WIDTH = 400;
@@ -40,7 +40,7 @@ function drawRect(bar, color) {
 }
 
 function drawBar(n, world) {
-    const barTODraw = createBar(
+    const barToDraw = createBar(
         n,
         world.barWidth,
         world.HEIGHT,
@@ -48,7 +48,7 @@ function drawBar(n, world) {
         world.data,
         world.scaleFactor,
     );
-    drawRect(barTODraw, r.DARKBLUE);
+    drawRect(barToDraw, r.DARKBLUE);
 }
 
 function drawAvgLine(w, color) {

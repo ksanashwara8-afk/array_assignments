@@ -1,5 +1,5 @@
 const r = require("raylib");
-const m = require("./math_functions");
+const m = require("./math");
 
 function isPeak(n, data) {
     return data[n + 1] > data[n] && data[n + 1] > data[n + 2];
